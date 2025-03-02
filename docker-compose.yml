@@ -1,24 +1,36 @@
 services:
   frontend:
     build:
-      context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.frontend
     ports:
       - '8085:80'
     volumes:
       - ./frontend:/app
     environment:
       - NODE_ENV=development
-  postgres:
-    image: postgres:latest
+  backend:
+    build:
+      dockerfile: Dockerfile.backend
+    ports:
+      - '8181:8181'
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/mydatabase
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+  db:
+    image: postgres:17.2
+    restart: always
     environment:
       POSTGRES_DB: pokedex
-      POSTGRES_USER: dbuser
+      POSTGRES_USER: ash
       POSTGRES_PASSWORD: dbpassword
     ports:
       - '5433:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./resources/database_backup.sql:/docker-entrypoint-initdb.d/database_backup.sql
 
 volumes:
   postgres_data:

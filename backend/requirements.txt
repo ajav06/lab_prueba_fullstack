@@ -1,0 +1,17 @@
+alembic
+blinker
+click
+Flask
+flask-cors
+Flask-Migrate
+Flask-SQLAlchemy
+gunicorn
+itsdangerous
+Jinja2
+Mako
+MarkupSafe
+packaging
+psycopg2-binary
+SQLAlchemy
+typing_extensions
+Werkzeug

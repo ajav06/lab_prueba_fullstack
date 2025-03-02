@@ -22,4 +22,8 @@ def create_app():
 
     app.register_blueprint(sets)
 
+    from .cards import cards
+
+    app.register_blueprint(cards)
+
     return app

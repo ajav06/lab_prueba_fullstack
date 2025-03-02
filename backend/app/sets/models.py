@@ -9,7 +9,7 @@ from app.db import Base
 class Set(Base):
     __tablename__ = 'set'
 
-    id = Column(String, primary_key=True)
+    id = Column(String, primary_key=True, index=True)
     name = Column(String, nullable=False)
     series = Column(String, nullable=False)
     printed_total = Column(Integer)

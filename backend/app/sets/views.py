@@ -2,10 +2,13 @@ import json
 
 from flask_cors import cross_origin
 
+from app.cards.repository import CardRepository
+
 from . import sets
 from .repository import SetRepository
 
 sets_repository = SetRepository()
+cards_repository = CardRepository()
 
 
 @sets.route('/sets', methods=['GET'])
@@ -27,3 +30,17 @@ def fetch_set_by_id(id: str):
         }, 404
 
     return {'results': json.loads(result.to_json())}, 200
+
+
+@sets.route('/sets/<id>/cards', methods=['GET'])
+@cross_origin()
+def fetch_cards_by_set_id(id: str):
+    results = cards_repository.get_by_set_id(id)
+
+    if not results:
+        return {
+            'message': f'No cards found for set with ID {id}.',
+            'error_code': 'CARDS_NOT_FOUND',
+        }, 404
+
+    return {'results': [json.loads(i.to_json()) for i in results]}, 200

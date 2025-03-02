@@ -1,6 +1,8 @@
 alembic
 blinker
 click
+debugpy
+dotenv
 Flask
 flask-cors
 Flask-Migrate
@@ -12,6 +14,7 @@ Mako
 MarkupSafe
 packaging
 psycopg2-binary
+python-dotenv
 SQLAlchemy
 typing_extensions
 Werkzeug

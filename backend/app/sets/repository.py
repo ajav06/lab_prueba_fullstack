@@ -4,8 +4,6 @@ from .models import Set
 
 
 class SetRepository:
-    def __init__(self):
-        pass
 
     def get_all(self):
         return db.session.query(Set).all()

@@ -8,6 +8,11 @@ const router = createRouter({
       name: 'home',
       component: () => import('../views/SetsView.vue'),
     },
+    {
+      path: '/:setId/cards',
+      name: 'CardsBySet',
+      component: () => import('../views/CardsView.vue'),
+    },
   ],
 });
 

@@ -1,32 +1,31 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { onMounted, ref, type Ref } from 'vue';
-import { Set } from '@/models';
-import { getSets } from '@/api/apiSets';
+import { Card } from '@/models';
+import { getCardsBySet } from '@/api/apiSets';
 import CardComponent from '@/components/CardComponent.vue';
 import TableComponent from '@/components/TableComponent.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
 
-const router = useRouter();
-const sets: Ref<Set[]> = ref([]);
+const route = useRoute();
+const cards: Ref<Card[]> = ref([]);
 const loading: Ref<boolean> = ref(false);
 const searchQuery: Ref<string> = ref('');
 const headers = [
   { text: 'Nombre', field: 'name' },
-  { text: 'Serie', field: 'series' },
-  { text: 'Total de Cartas', field: 'total' },
-  { text: 'Código PTCGO', field: 'ptcgoCode' },
-  { text: 'Logo', field: 'logoUrl' },
-  { text: 'Fecha de Lanzamiento', field: 'releaseDate' },
-  { text: 'Última Actualización', field: 'updatedAt' },
+  { text: 'Super tipos', field: 'supertype' },
+  { text: 'Sub tipos', field: 'subtypes' },
+  { text: 'Tipos', field: 'types' },
+  { text: 'Número', field: 'number' },
+  { text: 'Rareza', field: 'rarity' },
   { text: 'Cartas', field: 'actions' },
 ];
 
 const fetchSets = async () => {
   try {
     loading.value = true;
-    const response = await getSets();
-    sets.value = response.results;
+    const response = await getCardsBySet(String(route.params.setId));
+    cards.value = response.results;
   } catch (error) {
     console.error(error);
   } finally {
@@ -40,11 +39,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <card-component :is-loading="loading" title="Sets de cartas" with-search v-model="searchQuery">
+  <card-component :is-loading="loading" title="Cartas" with-search v-model="searchQuery">
     <template #content>
       <TableComponent
         :headers="headers"
-        :items="sets"
+        :items="cards"
         :items-per-page="5"
         :search-query="searchQuery"
       >
@@ -62,7 +61,6 @@ onMounted(() => {
           <button
             type="button"
             class="mx-auto text-sm flex items-center gap-1 bg-tertiary p-2 rounded-2xl"
-            @click="router.push({ name: 'CardsBySet', params: { setId: value.id } })"
           >
             <svg-icon name="eye-fill" size="16" svg-class="text-tertiary-dark" />
             Ver

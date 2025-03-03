@@ -17,7 +17,6 @@ export interface Card {
   subtypes: string[];
   types: string[];
   setId: string;
-  setCode: string;
   number: string;
   rarity: string;
   images?: Image[];

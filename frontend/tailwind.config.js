@@ -3,11 +3,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#FF6363',
-        secondary: {
-          100: '#E2E2D5',
-          200: '#888883',
-        },
+        primary: '#FF0000',
+        'primary-dark': '#CC0000',
+        secondary: '#FFDE00',
+        'secondary-dark': '#B3A125',
+        tertiary: '#5db9ff',
+        'tertiary-dark': '#3B4CCA',
       },
     },
   },

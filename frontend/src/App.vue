@@ -1,5 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <RouterView />
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-dvh flex items-center">
+    <RouterView />
+  </main>
 </template>

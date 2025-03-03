@@ -13,13 +13,14 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "axios": "^1.8.1",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.10.4",
     "@tsconfig/node20": "^20.1.4",
-    "@types/node": "^20.14.5",
+    "@types/node": "^20.17.21",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vue/eslint-config-airbnb-with-typescript": "^8.0.0",
     "@vue/eslint-config-prettier": "^9.0.0",

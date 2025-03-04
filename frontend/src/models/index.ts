@@ -48,5 +48,5 @@ export interface ResponseAPI<T> {
 
 export interface ResponseAPIError {
   error_code: string;
-  error_message: string;
+  message: string;
 }

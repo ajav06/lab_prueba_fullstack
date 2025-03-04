@@ -21,9 +21,9 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js,vue}": [
-      "pnpm run format",
-      "pnpm run lint",
-      "sh -c 'pnpm run type-check'"
+      "pnpm format",
+      "pnpm lint",
+      "sh -c 'pnpm type-check'"
     ]
   },
   "devDependencies": {

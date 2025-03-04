@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router';
 import { onMounted, ref, type Ref } from 'vue';
-import { type Card } from '@/models';
+import type { AxiosError } from 'axios';
+import type { Card, ResponseAPIError } from '@/models';
 import CardComponent from '@/components/CardComponent.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
 import Tag from '@/components/Tag.vue';
@@ -12,14 +13,17 @@ const route = useRoute();
 const router = useRouter();
 const card: Ref<Card> = ref({} as Card);
 const loading: Ref<boolean> = ref(false);
+const errorMessages: Ref<string> = ref('');
 
 const fetchCard = async () => {
   try {
     loading.value = true;
     const response = await getCardById(String(route.params.cardId));
     card.value = response.results;
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    const error = err as AxiosError;
+    errorMessages.value = (error.response?.data as ResponseAPIError)?.message || error.message;
+    console.error(errorMessages.value);
   } finally {
     loading.value = false;
   }
@@ -37,13 +41,13 @@ onMounted(() => {
 <template>
   <card-component
     :is-loading="loading"
-    :title="card.name || ''"
+    :title="card.name || errorMessages"
     :go-back="() => router.push({ name: 'CardsBySet', params: { setId: card.setId } })"
   >
     <template #content>
       <section
         v-if="card?.id"
-        class="flex gap-20 bg-gray-50 rounded-xl max-h-[26rem] px-6 py-12 justify-center"
+        class="flex max-h-[26rem] justify-center gap-20 rounded-xl bg-gray-50 px-6 py-12"
       >
         <img
           :src="card.images?.find(({ type }) => type === 'small')?.url"
@@ -51,8 +55,8 @@ onMounted(() => {
           class="max-h-80"
         />
         <div class="grid gap-4">
-          <div class="grid grid-flow-col gap-10 w-full items-center">
-            <div class="w-full flex flex-col gap-4">
+          <div class="grid w-full grid-flow-col items-center gap-10">
+            <div class="flex w-full flex-col gap-4">
               <p class="flex items-center gap-2">
                 <span class="font-bold"> Nombre: </span>
                 <span class="font-mono">
@@ -83,13 +87,13 @@ onMounted(() => {
                 </span>
               </p>
             </div>
-            <div class="w-full flex flex-col gap-4">
+            <div class="flex w-full flex-col gap-4">
               <p class="flex items-center gap-2">
                 <span class="font-bold"> Categoría: </span>
                 <Tag class="!bg-primary text-gray-100" :text="card.supertype" />
               </p>
 
-              <div class="flex gap-2 items-center">
+              <div class="flex items-center gap-2">
                 <span class="font-bold"> {{ card.supertype }}:</span>
                 <div class="flex gap-2">
                   <Tag :text="subtype" v-for="(subtype, id) in card.subtypes" :key="id" />
@@ -101,7 +105,7 @@ onMounted(() => {
                 <Tag class="!bg-green-600" :text="card.rarity" />
               </p>
 
-              <div class="flex gap-2 items-center" v-if="card.types?.length">
+              <div class="flex items-center gap-2" v-if="card.types?.length">
                 <span class="font-bold"> {{ card.types?.length > 1 ? 'Tipos' : 'Tipo' }}:</span>
                 <div class="flex gap-2">
                   <Tag
@@ -114,10 +118,10 @@ onMounted(() => {
               </div>
             </div>
           </div>
-          <div class="row-span-1 grid grid-flow-col gap-4 w-full items-center justify-center">
+          <div class="row-span-1 grid w-full grid-flow-col items-center justify-center gap-4">
             <button
               type="button"
-              class="bg-black text-gray-200 px-4 py-2 rounded-2xl flex items-center gap-2 max-w-28 justify-center max-h-10"
+              class="flex max-h-10 max-w-28 items-center justify-center gap-2 rounded-2xl bg-black px-4 py-2 text-gray-200"
               :key="id"
               v-for="(market, id) in card.market"
               @click="openWeb(market.url)"

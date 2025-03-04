@@ -18,6 +18,10 @@ const router = createRouter({
       name: 'CardDetails',
       component: () => import('../views/CardDetailsView.vue'),
     },
+    {
+      path: '/:pathMatch(.*)*',
+      component: () => import('../views/NotFound.vue'),
+    },
   ],
 });
 

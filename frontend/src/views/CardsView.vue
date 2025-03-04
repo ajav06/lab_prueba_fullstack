@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router';
 import { onMounted, ref, type Ref } from 'vue';
-import { type Card, type Set } from '@/models';
+import type { AxiosError } from 'axios';
+import type { Card, ResponseAPIError, Set } from '@/models';
 import { getCardsBySet } from '@/api/setApis';
 import { getTypeColor } from '@/helpers';
 import CardComponent from '@/components/CardComponent.vue';
@@ -15,6 +16,7 @@ const set: Ref<Set> = ref({} as Set);
 const cards: Ref<Card[]> = ref([]);
 const loading: Ref<boolean> = ref(false);
 const searchQuery: Ref<string> = ref('');
+const errorMessages: Ref<string> = ref('');
 const headers = [
   { text: 'Nombre', field: 'name' },
   { text: 'Categoría', field: 'supertype' },
@@ -31,8 +33,10 @@ const fetchCards = async () => {
     const response = await getCardsBySet(String(route.params.setId));
     set.value = response.results;
     cards.value = response.results.cards as Card[];
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    const error = err as AxiosError;
+    errorMessages.value = (error.response?.data as ResponseAPIError)?.message || error.message;
+    console.error(errorMessages.value);
   } finally {
     loading.value = false;
   }
@@ -46,7 +50,7 @@ onMounted(() => {
 <template>
   <card-component
     :is-loading="loading"
-    :title="`Cartas: ${set.name}`"
+    :title="set.name ? `Cartas: ${set.name}` : errorMessages"
     :go-back="() => router.push({ name: 'Sets' })"
     with-search
     v-model="searchQuery"
@@ -94,7 +98,7 @@ onMounted(() => {
         <template #actions="{ value }">
           <button
             type="button"
-            class="mx-auto text-[0.8rem] flex items-center gap-1 bg-green-600 px-2 py-1 rounded-2xl"
+            class="mx-auto flex items-center gap-1 rounded-2xl bg-green-600 px-2 py-1 text-[0.8rem]"
             @click="
               () =>
                 router.push({ name: 'CardDetails', params: { setId: set.id, cardId: value.id } })

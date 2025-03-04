@@ -1,4 +1,4 @@
-import type { Card, ResponseAPI, Set } from '@/models/index';
+import type { ResponseAPI, Set } from '@/models/index';
 import { transformObjectToCamelCase } from '@/helpers';
 import httpClient from './httpClient';
 
@@ -7,12 +7,12 @@ export const getSets = async (): Promise<ResponseAPI<Set[]>> => {
   return transformObjectToCamelCase(response.data);
 };
 
-export const getSet = async (id: string): Promise<ResponseAPI<Set>> => {
+export const getSetById = async (id: string): Promise<ResponseAPI<Set>> => {
   const response = await httpClient.get(`/sets/${id}`);
   return transformObjectToCamelCase(response.data);
 };
 
-export const getCardsBySet = async (id: string): Promise<ResponseAPI<Card[]>> => {
+export const getCardsBySet = async (id: string): Promise<ResponseAPI<Set>> => {
   const response = await httpClient.get(`/sets/${id}/cards`);
   return transformObjectToCamelCase(response.data);
 };

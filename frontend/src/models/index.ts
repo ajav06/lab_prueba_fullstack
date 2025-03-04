@@ -8,6 +8,7 @@ export interface Set {
   updatedAt: string;
   symbolUrl: string;
   logoUrl: string;
+  cards?: Card[];
 }
 
 export interface Card {
@@ -21,6 +22,7 @@ export interface Card {
   rarity: string;
   images?: Image[];
   market?: Market[];
+  set?: Set;
 }
 
 export interface Image {

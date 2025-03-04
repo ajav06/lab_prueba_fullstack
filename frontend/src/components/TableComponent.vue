@@ -9,7 +9,7 @@ interface Props<T> {
   searchQuery: string;
 }
 
-const props = defineProps<Props<any>>();
+const props: Props<any> = defineProps<Props<any>>();
 
 const currentPage: Ref<number> = ref(1);
 const itemsPerPage: Ref<number> = ref(props.itemsPerPage);
@@ -20,7 +20,7 @@ const filteredItems: ComputedRef<typeof props.items> = computed(() => {
   }
 
   const query = props.searchQuery.toLowerCase();
-  return props.items.filter((item) => {
+  return props.items.filter((item: { [x: string]: any }) => {
     return props.headers.some((header) => {
       if (['actions', 'id', 'enabled'].includes(header.field)) {
         return false;
@@ -107,7 +107,7 @@ const goToPage = (page: number) => {
       <button
         type="button"
         @click="goToPage(currentPage - 1)"
-        class="px-[0.844rem] py-[0.313rem] text-gray-500 disabled:text-gray-400"
+        class="px-[0.844rem] py-[0.313rem] text-gray-500"
         :disabled="currentPage === 1"
       >
         <svg-icon name="chevron-left" size="12" />
@@ -133,7 +133,7 @@ const goToPage = (page: number) => {
       <button
         type="button"
         @click="goToPage(currentPage + 1)"
-        class="px-[0.844rem] py-[0.313rem] text-gray-500 disabled:text-gray-400"
+        class="px-[0.844rem] py-[0.313rem] text-gray-500"
         :disabled="currentPage === totalPages"
       >
         <svg-icon name="chevron-right" size="12" />

@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { onMounted, ref, type Ref } from 'vue';
-import { Set } from '@/models';
-import { getSets } from '@/api/apiSets';
+import { type Set } from '@/models';
+import { getSets } from '@/api/setApis';
 import CardComponent from '@/components/CardComponent.vue';
 import TableComponent from '@/components/TableComponent.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
+import Tag from '@/components/Tag.vue';
 
 const router = useRouter();
 const sets: Ref<Set[]> = ref([]);
@@ -49,11 +50,7 @@ onMounted(() => {
         :search-query="searchQuery"
       >
         <template #ptcgoCode="{ value }">
-          <span
-            class="bg-secondary max-h-[1.25rem] max-w-[3.75rem] flex-shrink-0 truncate rounded px-2 py-1 text-[0.625rem] font-bold uppercase leading-normal"
-          >
-            {{ value.ptcgoCode }}
-          </span>
+          <Tag :text="value.ptcgoCode" />
         </template>
         <template #logoUrl="{ value }">
           <img :src="value.logoUrl" :alt="value.name" loading="lazy" class="max-h-16" />
@@ -61,10 +58,10 @@ onMounted(() => {
         <template #actions="{ value }">
           <button
             type="button"
-            class="mx-auto text-sm flex items-center gap-1 bg-tertiary p-2 rounded-2xl"
+            class="mx-auto text-[0.8rem] flex items-center gap-1 bg-green-600 px-2 py-1 rounded-2xl"
             @click="router.push({ name: 'CardsBySet', params: { setId: value.id } })"
           >
-            <svg-icon name="eye-fill" size="16" svg-class="text-tertiary-dark" />
+            <svg-icon name="eye-fill" size="14" />
             Ver
           </button>
         </template>

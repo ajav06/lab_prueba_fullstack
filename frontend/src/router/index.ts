@@ -5,13 +5,18 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Sets',
       component: () => import('../views/SetsView.vue'),
     },
     {
       path: '/:setId/cards',
       name: 'CardsBySet',
       component: () => import('../views/CardsView.vue'),
+    },
+    {
+      path: '/:setId/cards/:cardId',
+      name: 'CardDetails',
+      component: () => import('../views/CardDetailsView.vue'),
     },
   ],
 });

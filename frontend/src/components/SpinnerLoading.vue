@@ -6,7 +6,7 @@
 
 <style lang="scss" scoped>
 .spinner {
-  @apply size-20 animate-spin rounded-full border-8 border-solid border-primary border-t-primary;
+  @apply size-20 animate-spin rounded-full border-8 border-solid border-primary border-t-primary-dark;
 
   @keyframes spin {
     to {

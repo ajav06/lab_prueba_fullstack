@@ -61,12 +61,12 @@ onMounted(() => {
           <img :src="value.logoUrl" :alt="value.name" loading="lazy" class="max-h-16" />
         </template>
         <template #releaseDate="{ value }">
-          <span class="text-sm font-mono">{{ formatDate(value.releaseDate) }}</span>
+          <span class="font-mono text-sm">{{ formatDate(value.releaseDate) }}</span>
         </template>
         <template #actions="{ value }">
           <button
             type="button"
-            class="mx-auto text-[0.8rem] flex items-center gap-1 bg-green-600 px-2 py-1 rounded-2xl"
+            class="mx-auto flex items-center gap-1 rounded-2xl bg-green-600 px-2 py-1 text-[0.8rem]"
             @click="router.push({ name: 'CardsBySet', params: { setId: value.id } })"
           >
             <svg-icon name="eye-fill" size="14" />

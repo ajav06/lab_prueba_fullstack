@@ -86,17 +86,17 @@ watch(
           <th
             v-for="(header, id) in props.headers"
             :key="id"
-            class="first:rounded-tl-xl last:rounded-tr-xl px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+            class="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500 first:rounded-tl-xl last:rounded-tr-xl"
           >
             {{ header.text }}
           </th>
         </tr>
       </thead>
-      <tbody class="bg-white divide-y divide-gray-200 rounded-bl-xl">
+      <tbody class="divide-y divide-gray-200 rounded-bl-xl bg-white">
         <tr v-for="(item, id) in paginatedItems" :key="id">
           <td
-            class="px-6 py-4 whitespace-no-wrap"
-            :class="{ 'last:rounded-br-xl first:rounded-bl-xl': id === paginatedItems.length - 1 }"
+            class="whitespace-no-wrap px-6 py-4"
+            :class="{ 'first:rounded-bl-xl last:rounded-br-xl': id === paginatedItems.length - 1 }"
             v-for="(header, _id) in props.headers"
             :key="_id"
           >
@@ -108,7 +108,7 @@ watch(
       </tbody>
     </table>
     <div
-      class="mt-4 flex max-w-full justify-center mx-auto"
+      class="mx-auto mt-4 flex max-w-full justify-center"
       v-if="props.items.length > 0 && filteredItems.length > props.itemsPerPage"
     >
       <button

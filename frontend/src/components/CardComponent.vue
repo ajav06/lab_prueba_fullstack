@@ -23,16 +23,16 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-  <main class="container mx-auto p-12 px-20 bg-gray-400 rounded-2xl rounded-bl-[8rem]">
+  <main class="container mx-auto rounded-2xl rounded-bl-[8rem] bg-gray-400 p-12 px-20">
     <spinner-loading v-if="props.isLoading" />
     <div v-else>
-      <section class="mb-8 flex justify-between items-center">
+      <section class="mb-8 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <span
-            class="size-24 rounded-full bg-tertiary flex items-center justify-center border-gray-300 border-8"
+            class="flex size-24 items-center justify-center rounded-full border-8 border-gray-300 bg-tertiary"
           />
 
-          <h1 class="text-gray-800 text-xl font-bold">{{ props.title }}</h1>
+          <h1 class="text-xl font-bold text-gray-800">{{ props.title }}</h1>
         </div>
         <div class="flex items-center gap-3">
           <div class="size-9 rounded-full bg-primary-dark"></div>
@@ -45,7 +45,7 @@ const props = defineProps<Props>();
             name="search"
             id="search"
             placeholder="Buscar..."
-            class="text-xl rounded-xl p-2 px-4 font-mono"
+            class="rounded-xl p-2 px-4 font-mono text-xl"
             :value="String(modelValue ?? '')"
             @input="handleInput($event)"
           />
@@ -57,7 +57,7 @@ const props = defineProps<Props>();
       <div class="mt-8 flex justify-center" v-if="props.goBack">
         <button
           type="button"
-          class="bg-black text-gray-200 px-4 py-2 rounded-2xl flex items-center gap-2"
+          class="flex items-center gap-2 rounded-2xl bg-black px-4 py-2 text-gray-200"
           @click="props.goBack"
         >
           <svg-icon name="arrow-left" size="20" />

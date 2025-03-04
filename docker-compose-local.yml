@@ -3,15 +3,26 @@ services:
     image: frontend:local
     build:
       dockerfile: Dockerfile.frontend
+    ports:
+      - '8085:80'
+    volumes:
+      - ./frontend:/app
     environment:
       - NODE_ENV=development
   backend:
+    volumes:
+      - ./backend:/app
     image: backend:local
     build:
       dockerfile: Dockerfile.backend
     ports:
       - '8181:8181'
+      - '5680:5678'
+    command:
+      python -m debugpy --listen 0.0.0.0:5678 -m flask run --host=0.0.0.0 --port=8181
     environment:
+      FLASK_DEBUG: 1
+      FLASK_APP: ./main.py
       DATABASE_URL: postgresql://ash:dbpassword@db/pokedex
     depends_on:
       - db

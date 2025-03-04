@@ -61,7 +61,7 @@ const props = defineProps<Props>();
           @click="props.goBack"
         >
           <svg-icon name="arrow-left" size="20" />
-          Volver
+          <span>Volver</span>
         </button>
       </div>
     </div>

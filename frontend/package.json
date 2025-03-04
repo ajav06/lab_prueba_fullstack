@@ -10,12 +10,21 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "prepare": "husky|| true",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
     "axios": "^1.8.1",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,vue}": [
+      "pnpm run format",
+      "pnpm run lint",
+      "sh -c 'pnpm run type-check'"
+    ]
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.10.4",

@@ -43,7 +43,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <card-component :is-loading="loading" title="Sets de cartas" with-search v-model="searchQuery">
+  <card-component
+    :is-loading="loading"
+    title="Sets de cartas: Pokémon TCG"
+    with-search
+    v-model="searchQuery"
+  >
     <template #content>
       <TableComponent
         :headers="headers"

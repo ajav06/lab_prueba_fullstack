@@ -25,6 +25,9 @@ const filteredItems: ComputedRef<typeof props.items> = computed(() => {
       if (['actions', 'Url'].includes(header.field)) {
         return false;
       }
+      if (['subtypes', 'types'].includes(header.field)) {
+        return item[header.field].some((value: string) => value.toLowerCase().includes(query));
+      }
       let text = String(item[header.field] ?? '');
       if (header.field.toLowerCase().includes('date')) {
         [text] = text.split(' ');
@@ -40,7 +43,7 @@ const paginatedItems: ComputedRef<typeof props.items> = computed(() => {
   return filteredItems.value.slice(start, end);
 });
 const totalPages: ComputedRef<number> = computed(() =>
-  Math.ceil(props.items.length / itemsPerPage.value),
+  Math.ceil(filteredItems.value.length / itemsPerPage.value),
 );
 const visiblePages: ComputedRef<(number | string)[]> = computed(() => {
   if (totalPages.value <= 3)

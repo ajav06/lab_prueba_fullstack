@@ -14,6 +14,11 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void;
 }>();
 
+/**
+ * The function `handleInput` is a callback function that is triggered when an input event occurs
+ * in the input field to update the `modelValue` field.
+ * @param {Event} $event: The event object that triggered the function.
+ */
 const handleInput = ($event: Event) => {
   const target = $event.target as HTMLInputElement;
   emit('update:modelValue', String(target.value));

@@ -15,11 +15,10 @@ const searchQuery: Ref<string> = ref('');
 const headers = [
   { text: 'Nombre', field: 'name' },
   { text: 'Serie', field: 'series' },
-  { text: 'Total de Cartas', field: 'total' },
+  { text: 'Total de cartas', field: 'total' },
   { text: 'Código PTCGO', field: 'ptcgoCode' },
   { text: 'Logo', field: 'logoUrl' },
-  { text: 'Fecha de Lanzamiento', field: 'releaseDate' },
-  { text: 'Última Actualización', field: 'updatedAt' },
+  { text: 'Fecha de lanzamiento', field: 'releaseDate' },
   { text: 'Cartas', field: 'actions' },
 ];
 
@@ -35,6 +34,9 @@ const fetchSets = async () => {
   }
 };
 
+const formatDate = (date: string) =>
+  new Date(date).toLocaleDateString('es-CL', { timeZone: 'UTC' });
+
 onMounted(() => {
   fetchSets();
 });
@@ -49,11 +51,17 @@ onMounted(() => {
         :items-per-page="5"
         :search-query="searchQuery"
       >
+        <template #total="{ value }">
+          <span class="font-mono"> {{ value.total }} </span>
+        </template>
         <template #ptcgoCode="{ value }">
           <Tag :text="value.ptcgoCode" />
         </template>
         <template #logoUrl="{ value }">
           <img :src="value.logoUrl" :alt="value.name" loading="lazy" class="max-h-16" />
+        </template>
+        <template #releaseDate="{ value }">
+          <span class="text-sm font-mono">{{ formatDate(value.releaseDate) }}</span>
         </template>
         <template #actions="{ value }">
           <button

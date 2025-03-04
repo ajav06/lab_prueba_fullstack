@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, type ComputedRef, type Ref } from 'vue';
+import { computed, ref, watch, type ComputedRef, type Ref } from 'vue';
 import SvgIcon from './SvgIcon.vue';
 
 interface Props<T> {
@@ -69,6 +69,13 @@ const goToPage = (page: number) => {
     currentPage.value = page;
   }
 };
+
+watch(
+  () => props.searchQuery,
+  () => {
+    goToPage(1);
+  },
+);
 </script>
 
 <template>
@@ -102,7 +109,7 @@ const goToPage = (page: number) => {
     </table>
     <div
       class="mt-4 flex max-w-full justify-center mx-auto"
-      v-if="props.items.length > 0 && props.items.length > props.itemsPerPage"
+      v-if="props.items.length > 0 && filteredItems.length > props.itemsPerPage"
     >
       <button
         type="button"

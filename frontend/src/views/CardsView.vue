@@ -75,7 +75,7 @@ onMounted(() => {
         <template #types="{ value }">
           <div class="flex flex-wrap gap-2">
             <Tag
-              :class="getTypeColor(type)"
+              :color="getTypeColor(type)"
               :text="type"
               v-for="(type, id) in value.types"
               :key="id"

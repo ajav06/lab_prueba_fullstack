@@ -109,7 +109,7 @@ onMounted(() => {
                 <span class="font-bold"> {{ card.types?.length > 1 ? 'Tipos' : 'Tipo' }}:</span>
                 <div class="flex gap-2">
                   <Tag
-                    :class="getTypeColor(type)"
+                    :color="getTypeColor(type)"
                     :text="type"
                     v-for="(type, id) in card.types"
                     :key="id"

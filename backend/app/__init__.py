@@ -7,6 +7,18 @@ from app.db import db
 
 
 def create_app():
+    """
+    Summary
+    -------
+    Initializes a Flask application with different configurations based on the environment
+    variable and registers blueprints for sets and cards
+
+    Returns
+    -------
+        Returning an instance of the Flask application after setting up the configuration
+        based on the environment variable "ENV" and registering blueprints for sets and
+        cards
+    """
     app = Flask(__name__)
 
     if os.environ.get("ENV", "").upper() == "LOCAL":

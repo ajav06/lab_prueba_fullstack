@@ -22,12 +22,12 @@ const filteredItems: ComputedRef<typeof props.items> = computed(() => {
   const query = props.searchQuery.toLowerCase();
   return props.items.filter((item: { [x: string]: any }) => {
     return props.headers.some((header) => {
-      if (['actions', 'id', 'enabled'].includes(header.field)) {
+      if (['actions', 'Url'].includes(header.field)) {
         return false;
       }
       let text = String(item[header.field] ?? '');
       if (header.field.toLowerCase().includes('date')) {
-        [text] = text.split('T');
+        [text] = text.split(' ');
       }
       text = text.toLowerCase();
       return text.includes(query);

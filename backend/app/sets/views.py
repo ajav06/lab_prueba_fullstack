@@ -35,12 +35,16 @@ def fetch_set_by_id(id: str):
 @sets.route('/sets/<id>/cards', methods=['GET'])
 @cross_origin()
 def fetch_cards_by_set_id(id: str):
-    results = cards_repository.get_by_set_id(id)
+    set = sets_repository.get_by_id(id)
+    cards = cards_repository.get_by_set_id(id)
 
-    if not results:
+    if not set or not cards:
         return {
             'message': f'No cards found for set with ID {id}.',
             'error_code': 'CARDS_NOT_FOUND',
         }, 404
 
-    return {'results': [json.loads(i.to_json()) for i in results]}, 200
+    results = json.loads(set.to_json())
+    results['cards'] = [json.loads(i.to_json()) for i in cards]
+
+    return {'results': results}, 200

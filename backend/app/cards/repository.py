@@ -1,4 +1,5 @@
 from app.db import db
+from app.sets.repository import SetRepository
 
 from .models import Card, Image, Market
 
@@ -30,6 +31,7 @@ class MarketRepository:
 class CardRepository:
     image_repository = ImageRepository()
     market_repository = MarketRepository()
+    set_repository = SetRepository()
 
     def get_all(self) -> list[Card]:
         return db.session.query(Card).all()
@@ -42,6 +44,7 @@ class CardRepository:
 
         card.images = self.image_repository.get_by_card_id(id)
         card.market = self.market_repository.get_by_card_id(id)
+        card.set = self.set_repository.get_by_id(card.set_id)
         return card
 
     def get_by_set_id(self, set_id: str) -> list[Card]:

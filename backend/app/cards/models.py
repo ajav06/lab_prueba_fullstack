@@ -33,6 +33,11 @@ class Card(Base):
             'rarity': self.rarity,
             'images': [i.as_dict() for i in self.images],
             'market': [i.as_dict() for i in self.market],
+            'set': (
+                set_data.as_dict()
+                if hasattr(self, 'set') and (set_data := getattr(self, 'set'))
+                else None
+            ),
         }
 
     def to_json(self):

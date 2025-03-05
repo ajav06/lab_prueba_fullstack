@@ -121,13 +121,13 @@ onMounted(() => {
           <div class="row-span-1 grid w-full grid-flow-col items-center justify-center gap-4">
             <button
               type="button"
-              class="flex max-h-10 max-w-28 items-center justify-center gap-2 rounded-2xl bg-black px-4 py-2 text-gray-200"
+              class="flex max-h-10 max-w-52 items-center justify-center gap-2 rounded-2xl bg-black px-4 py-2 text-gray-200"
               :key="id"
               v-for="(market, id) in card.market"
               @click="openWeb(market.url)"
             >
               <svg-icon size="14" name="shop" />
-              <span class="text-[0.8rem]">Comprar</span>
+              <span class="text-[0.8rem]">Market: {{ market.market }}</span>
             </button>
           </div>
         </div>

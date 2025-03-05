@@ -3,8 +3,10 @@ services:
     image: frontend:local
     build:
       dockerfile: Dockerfile.frontend
-    environment:
-      - NODE_ENV=development
+      args:
+        VITE_API_URL: http://localhost:8181
+    ports:
+      - '80:8080'
   backend:
     image: backend:local
     build:

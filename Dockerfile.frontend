@@ -1,19 +1,21 @@
 FROM node:20.12.2-alpine as build
 
+ARG VITE_API_URL
+ENV VITE_API_URL=${VITE_API_URL}
+
 WORKDIR /app
 
 COPY frontend/package*.json ./
 
+RUN npm install -g http-server
 RUN npm install -g pnpm && pnpm install
 
 COPY frontend/ .
 
 RUN pnpm run build
 
-FROM nginx:alpine
+RUN cd dist && cp index.html 404.html
 
-COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 8080
 
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["http-server", "dist"]

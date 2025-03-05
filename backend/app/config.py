@@ -11,6 +11,8 @@ class Config(object):
         or 'postgresql://ash:dbpassword@localhost:5432/pokedex'
     )
     ENV = os.environ.get('ENV')
+    SWAGGER_URL = '/swagger'
+    API_URL = '/static/swagger.json'
 
 
 class ProductionConfig(Config):

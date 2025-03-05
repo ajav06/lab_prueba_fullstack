@@ -1,0 +1,450 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Pokémon TCG API",
+    "version": "1.0.0"
+  },
+  "definitions": {
+    "Set": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "sve"
+        },
+        "name": {
+          "type": "string",
+          "example": "Sword & Shield"
+        },
+        "series": {
+          "type": "string",
+          "example": "Sword & Shield"
+        },
+        "printed_total": {
+          "type": "integer",
+          "example": 202
+        },
+        "total": {
+          "type": "integer",
+          "example": 216
+        },
+        "ptcgo_code": {
+          "type": "string",
+          "example": "SSH"
+        },
+        "release_date": {
+          "type": "string",
+          "example": "2020-02-07"
+        },
+        "updated_at": {
+          "type": "string",
+          "example": "2020-02-07"
+        },
+        "symbol_url": {
+          "type": "string",
+          "example": "https://images.pokemontcg.io/sve/symbol.png"
+        },
+        "logo_url": {
+          "type": "string",
+          "example": "https://images.pokemontcg.io/sve/logo.png"
+        }
+      }
+    },
+    "Card": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "sv8-1"
+        },
+        "name": {
+          "type": "string",
+          "example": "Alakazam"
+        },
+        "supertype": {
+          "type": "string",
+          "example": "Pokémon"
+        },
+        "subtypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "example": [
+            "Stage 2"
+          ]
+        },
+        "types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "example": [
+            "Psychic"
+          ]
+        },
+        "set_id": {
+          "type": "string",
+          "example": "sv8"
+        },
+        "number": {
+          "type": "string",
+          "example": "1"
+        },
+        "rarity": {
+          "type": "string",
+          "example": "Common"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "card_id": {
+                "type": "string",
+                "example": "sv8-1"
+              },
+              "url": {
+                "type": "string",
+                "example": "https://images.pokemontcg.io/sv8/1.png"
+              },
+              "type": {
+                "type": "string",
+                "example": "small"
+              }
+            }
+          }
+        },
+        "market": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "example": 1
+              },
+              "card_id": {
+                "type": "string",
+                "example": "sv8-1"
+              },
+              "url": {
+                "type": "string",
+                "example": "https://www.tcgplayer.com/item/1"
+              },
+              "updated_at": {
+                "type": "string",
+                "example": "2020-02-07"
+              },
+              "market": {
+                "type": "string",
+                "example": "tcgplayer"
+              }
+            }
+          }
+        }
+      }
+    },
+    "CardWithSet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "sv8-1"
+        },
+        "name": {
+          "type": "string",
+          "example": "Alakazam"
+        },
+        "supertype": {
+          "type": "string",
+          "example": "Pokémon"
+        },
+        "subtypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "example": [
+            "Stage 2"
+          ]
+        },
+        "types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "example": [
+            "Psychic"
+          ]
+        },
+        "set_id": {
+          "type": "string",
+          "example": "sv8"
+        },
+        "number": {
+          "type": "string",
+          "example": "1"
+        },
+        "rarity": {
+          "type": "string",
+          "example": "Common"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "card_id": {
+                "type": "string",
+                "example": "sv8-1"
+              },
+              "url": {
+                "type": "string",
+                "example": "https://images.pokemontcg.io/sv8/1.png"
+              },
+              "type": {
+                "type": "string",
+                "example": "small"
+              }
+            }
+          }
+        },
+        "market": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "example": 1
+              },
+              "card_id": {
+                "type": "string",
+                "example": "sv8-1"
+              },
+              "url": {
+                "type": "string",
+                "example": "https://www.tcgplayer.com/item/1"
+              },
+              "updated_at": {
+                "type": "string",
+                "example": "2020-02-07"
+              },
+              "market": {
+                "type": "string",
+                "example": "tcgplayer"
+              }
+            }
+          }
+        },
+        "set": {
+          "$ref": "#/definitions/Card"
+        }
+      }
+    }
+  },
+  "paths": {
+    "/sets": {
+      "get": {
+        "tags": [
+          "Sets"
+        ],
+        "description": "Returns all sets",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Set"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sets/{id}": {
+      "get": {
+        "tags": [
+          "Sets"
+        ],
+        "description": "Returns a set by id",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "results": {
+                  "$ref": "#/definitions/Set"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Set not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Set with ID sve does not exist."
+                },
+                "error_code": {
+                  "type": "string",
+                  "example": "SET_NOT_FOUND"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sets/{id}/cards": {
+      "get": {
+        "tags": [
+          "Sets"
+        ],
+        "description": "Returns all cards from a set",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Card"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cards not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No cards found for set with ID sve."
+                },
+                "error_code": {
+                  "type": "string",
+                  "example": "CARDS_NOT_FOUND"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cards":{
+      "get": {
+        "tags": [
+          "Cards"
+        ],
+        "description": "Returns all cards",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Card"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cards/{id}": {
+      "get": {
+        "tags": [
+          "Cards"
+        ],
+        "description": "Returns a card by id",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "results": {
+                  "$ref": "#/definitions/CardWithSet"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Card not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Card with ID sv8-1 does not exist."
+                },
+                "error_code": {
+                  "type": "string",
+                  "example": "CARD_NOT_FOUND"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

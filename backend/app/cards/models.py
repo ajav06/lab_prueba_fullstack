@@ -31,8 +31,16 @@ class Card(Base):
             'set_id': self.set_id,
             'number': self.number,
             'rarity': self.rarity,
-            'images': [i.as_dict() for i in self.images],
-            'market': [i.as_dict() for i in self.market],
+            'images': (
+                [i.as_dict() for i in self.images]
+                if hasattr(self, 'images') and (set_data := getattr(self, 'images'))
+                else None
+            ),
+            'market': (
+                [i.as_dict() for i in self.market]
+                if hasattr(self, 'market') and (set_data := getattr(self, 'market'))
+                else None
+            ),
             'set': (
                 set_data.as_dict()
                 if hasattr(self, 'set') and (set_data := getattr(self, 'set'))

@@ -60,7 +60,7 @@ onMounted(() => {
           <span class="font-mono"> {{ value.total }} </span>
         </template>
         <template #ptcgoCode="{ value }">
-          <Tag :text="value.ptcgoCode" />
+          <Tag color="bg-black" class="text-white" :text="value.ptcgoCode" />
         </template>
         <template #logoUrl="{ value }">
           <img :src="value.logoUrl" :alt="value.name" loading="lazy" class="max-h-16" />

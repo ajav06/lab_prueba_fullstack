@@ -22,12 +22,12 @@ def create_app():
     """
     app = Flask(__name__)
 
-    if os.environ.get("ENV", "").upper() == "LOCAL":
-        app.config.from_object(Config())
-    elif os.environ.get("ENV", "").upper() == "DEV":
+    if os.environ.get("ENV", "").upper() == "DEV":
         app.config.from_object(DevelopmentConfig())
     elif os.environ.get("ENV", "").upper() == "PROD":
         app.config.from_object(ProductionConfig())
+    else:
+        app.config.from_object(Config())
 
     db.init_app(app)
 

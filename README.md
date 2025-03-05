@@ -1,98 +1,88 @@
-# Prueba Fullstack - Pokémon TCG API y Frontend
+# 🎯 Pokémon TCG - Fullstack App
 
-¡Bienvenido a la prueba técnica para desarrolladores Fullstack! En esta prueba, trabajarás con una base de datos que contiene información de los sets y cartas del juego Pokémon TCG. Tu objetivo será construir un backend con una API REST y un frontend para listar y visualizar esta información. 
+Este proyecto es una aplicación Fullstack que consume una base de datos con información de los sets y cartas del juego Pokémon TCG. La aplicación incluye un backend en Flask con una API REST documentada con **flask-swagger-ui** y un frontend en Vue 3 con TypeScript y Tailwind CSS.
 
-## Objetivo de la Prueba
+## 🛠️ Tecnologías Utilizadas
 
-1. **Backend**:
-   - Implementar un backend con una API REST utilizando la base de datos provista (PostgreSQL).
-   - Construir endpoints para listar:
-     - Los sets disponibles.
-     - Las cartas correspondientes a cada set.
-     - (Opcional) Información detallada de una carta específica.
+### **Backend**
 
-2. **Frontend**:
-   - Construir una aplicación web para:
-     - Listar los sets disponibles.
-     - Mostrar las cartas correspondientes a cada set.
-     - (Opcional) Visualizar información detallada de una carta en una vista individual.
+- Python
+- Flask
+- Flask-SQLAlchemy
+- PostgreSQL
+- Flask-Swagger-UI
+- Docker / Docker Compose
+- Render (para despliegue)
 
-3. **Infraestructura**:
-   - Usar Docker para la configuración del entorno de desarrollo, incluyendo la base de datos y la API.
+### **Frontend**
 
-## Requisitos
+- Vue 3
+- Vite
+- TypeScript
+- Tailwind CSS
+- Netlify (para despliegue)
 
-### Obligatorios
-- Backend en **Node.js**, **Python** (Flask/Django), o cualquier lenguaje de tu preferencia.
-- Frontend en **React**, **Vue**, **Nextjs** o **Astro**.
-- Documentación clara de los endpoints en el backend.
+## 🌐 Despliegue
 
-### Suma Puntos
-Sabemos que tu tiempo es valioso!, asi que si si logras implementar alguno de estos aspectos podrás sumar algunos punto extras
+- **Frontend**: [Enlace a Netlify](https://pokemon-tcg-ajav06.netlify.app)
+- **Backend**: [Enlace a Render](https://lab-prueba-fullstack-qnrn.onrender.com/swagger)
 
-- Implementar una vista individual para cada carta en el frontend.
-- Añadir un buscador o filtro en el frontend para buscar cartas por nombre, rareza, o tipo.
-- Usar Tailwind para estilizar el frontend.
-- Desplegar la base de datos PostgreSQL mediante Docker.
-- Desplegar la aplicación mediante Docker.
+## 🛡️ Instalación y Uso
 
-## Base de Datos
-El esquema de la base de datos contiene las siguientes tablas:
+### 1. Ejecutar con Docker Compose
 
-1. **set**:
-   - Información sobre los sets de cartas (nombre, serie, cantidad total, fecha de lanzamiento, etc.).
+```sh
+docker-compose up --build
+```
 
-2. **card**:
-   - Información de las cartas (nombre, supertipo, subtipo, rareza, etc.).
-   - Relación con un set específico.
+Esto iniciará el backend, frontend y la base de datos PostgreSQL.
 
-3. **image**:
-   - URLs de imágenes de las cartas.
+### 2. Acceder a la Aplicación
 
-4. **market**:
-   - Información del mercado relacionada con las cartas.
+- Frontend: [http://localhost:8085](http://localhost:8085)
+- Backend (Swagger UI): [http://localhost:8181/swagger](http://localhost:8181/swagger)
 
-Puedes ver el esquema completo en el archivo `resources/database-diagram.png` incluido.
+## 📝 Documentación de la API
 
-## Instrucciones
+La API está documentada con **Swagger** y es accesible en: [http://localhost:8181/swagger](http://localhost:8181/swagger)
 
-1. **Configuración del Entorno**:
-   - Clona este repositorio.
-   - Carga la base de datos en PostgreSQL usando el backup incluido (`database_backup.sql`).
-   - (Opcional) Configura un contenedor Docker para la base de datos.
+### **Endpoints Disponibles**
 
-2. **Backend**:
-   - Configura tu backend para conectarse a la base de datos PostgreSQL.
-   - Implementa los siguientes endpoints:
-     - `GET /sets`: Lista todos los sets.
-     - `GET /sets/:id/cards`: Lista todas las cartas de un set específico.
-     - (Opcional) `GET /cards/:id`: Devuelve información detallada de una carta.
+#### **Sets**
 
-3. **Frontend**:
-   - Construye una interfaz de usuario que:
-     - Liste los sets disponibles.
-     - Muestra las cartas de un set seleccionado.
-     - (Opcional) Visualiza información detallada de una carta.
+- `GET /sets` - Obtiene todos los sets
+- `GET /sets/{id}` - Obtiene un set por ID
+- `GET /sets/{id}/cards` - Obtiene cartas por Set
 
-4. **Ejecución**:
-   - Proporciona instrucciones claras en este archivo para ejecutar la aplicación.
-   - (Opcional) Usa Docker Compose para levantar la base de datos, el backend y el frontend.
+#### **Cartas**
 
-## Entrega
+- `GET /cards` - Obtiene todas las cartas
+- `GET /cards/{id}` - Obtiene una carta por ID
 
-Por favor, entrega tu solución de la siguiente manera:
-- Un repositorio en GitHub con el código del backend, frontend, y los archivos de configuración de Docker.
-- Instrucciones claras en este archivo para ejecutar la aplicación.
-- (Opcional) Un enlace a un despliegue funcional (por ejemplo, en Heroku, Vercel, o similares).
-- **Tienes 1 semana para entregar una vez aceptado el desafío**
+## 📖 Estructura del Proyecto
 
-## Evaluación
-
-Se evaluará:
-- Correcta implementación de los endpoints requeridos.
-- Funcionalidad y diseño del frontend.
-- Organización y claridad del código.
-- Documentación.
-- Implementación de las características opcionales (si aplica).
-
-¡Buena suerte y que la creatividad te acompañe!
+```
+/
+├── backend/
+│   ├── app/
+│   │   ├── cards/
+│   │   │   ├── models.py   # Modelos SQLAlchemy
+│   │   │   ├── repository.py   # Repositorios para acceso a datos
+│   │   │   ├── views.py   # Rutas y vistas de la API
+│   │   ├── sets/
+│   │   │   ├── models.py   # Modelos SQLAlchemy
+│   │   │   ├── repository.py   # Repositorios para acceso a datos
+│   │   │   ├── views.py   # Rutas y vistas de la API
+│   │   ├── static/
+│   │   │   ├── swagger.json   # Modelos Swagger
+│   ├── requirements.txt
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── views/
+│   ├── vite.config.ts
+├── Dockerfile.frontend
+├── Dockerfile.backend
+├── docker-compose.yml
+├── README.md
+```

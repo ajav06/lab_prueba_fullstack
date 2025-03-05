@@ -48,7 +48,7 @@ const emits = defineEmits<{
                   href="https://www.linkedin.com/in/ajav06/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-primary hover:text-primary-dark"
+                  class="text-white hover:text-gray-300"
                 >
                   {{ 'Albert Acevedo' }}
                 </a>
@@ -56,7 +56,7 @@ const emits = defineEmits<{
 
               <p>
                 <span class="font-semibold">{{ 'Contacto: ' }}</span>
-                <a href="mailto:albert06@gmail.com" class="text-primary hover:text-primary-dark">
+                <a href="mailto:albert06@gmail.com" class="text-white hover:text-gray-300">
                   {{ 'albert06@gmail.com' }}
                 </a>
               </p>

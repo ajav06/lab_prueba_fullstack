@@ -2,7 +2,12 @@
   "swagger": "2.0",
   "info": {
     "title": "Pokémon TCG API",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "description": "API for Pokémon TCG",
+    "contact": {
+      "name": "Pokémon TCG Fronted",
+      "url": "https://pokemon-tcg-ajav06.netlify.app/"
+    }
   },
   "definitions": {
     "Set": {

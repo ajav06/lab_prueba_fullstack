@@ -32,7 +32,7 @@ Este proyecto es una aplicación Fullstack que consume una base de datos con inf
 ### 1. Ejecutar con Docker Compose
 
 ```sh
-docker-compose up --build
+docker compose -f 'docker-compose.yml' up -d --build
 ```
 
 Esto iniciará el backend, frontend y la base de datos PostgreSQL.
